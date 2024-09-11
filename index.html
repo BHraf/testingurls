@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+    <button onclick="copytst()"> Image </button> 
+        
+<br><br>
+    <br><br>
     <div>
         <img id="test" src="" alt="test">
     </div>
@@ -36,7 +40,16 @@
       document.getElementById('email').value = decodeURIComponent(email);
     }
   });*/
+    function copytst(){
+            
+            var imageUrl = document.getElementById('test').src;
+            var link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'my-image.jpg';
+            link.click();
 
+            }
+      
  
       
   function update(){
