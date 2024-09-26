@@ -6,12 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="copytst()"> Image </button> 
+    <button onclick="copytst(0)"> Image </button> 
+        <button onclick="copytst(1)"> Image1 </button> 
+
+        <button onclick="copytst(2)"> Image2 </button> 
+
         
 <br><br>
     <br><br>
     <div>
-        <img id="test" src="" alt="test">
+        <img id="test0"  class="test" src="" alt="test">
+        <img id="test1" class="test" src="" alt="test">
+        <img id="test2" class="test" src="" alt="test">   
     </div>
 
     <script>
@@ -40,17 +46,58 @@
       document.getElementById('email').value = decodeURIComponent(email);
     }
   });*/
-    function copytst(){
+    function copytst(ids){
             
-            var imageUrl = document.getElementById('test').src;
+            var imageUrl = document.getElementById('test'+ids).src;
             var link = document.createElement('a');
             link.href = imageUrl;
-            link.download = 'my-image.jpg';
+            link.download = 'my-image'+ids+'.jpg';
             link.click();
 
             }
       
- 
+   function urlManagement(){
+    const urlParams = new URLSearchParams(window.location.search);
+    //https://d3aa3s3yhl0emm.cloudfront.net/aiavatar/44bd6d72-59af-4fd1-ae9e-f88ad0cf3843.jpg
+    const result1 = "https://d3aa3s3yhl0emm.cloudfront.net/aiavatar/";
+    const result2 = ".jpg"; 
+    //const c4d= "44bd6d72-59af-4fd1-ae9e-f88ad0cf3843";
+    const resultimage =urlParams.get('cd4');
+    document.getElementById('test0').src=result1+resultimage+result2;
+
+    const image1= "https://firebasestorage.googleapis.com/v0/b/photobooth-466c7.appspot.com/o/images%2F"
+    const image2= ".png?alt=media&token="
+    let effect="";
+    let gifurl1="";
+    const real =urlParams.get('effect');
+    const imageurl2= urlParams.get('midb'); 
+
+    
+    const gif1= "https://firebasestorage.googleapis.com/v0/b/photobooth-466c7.appspot.com/o/images%2F"
+    const gif2= ".gif?alt=media&token="
+    const gifurl2=".gif?alt=media&token=";
+    const pitch = urlParams.get('pitch'); 
+    
+    if(real == 0 ){
+        effect ="image";
+        gifurl1 ="generatedGif";
+        document.getElementById('test1').src=image1+effect+image2+imageurl2;
+        document.getElementById('test2').src=gif1+gifurl1+gifurl2+pitch;
+
+    }
+   
+    else{
+        effect ="image"+real;
+        gifurl1 ="generatedGif"+real;
+            document.getElementById('test1').src=image1+effect+image2+imageurl2;
+            document.getElementById('test2').src=gif1+gifurl1+gifurl2+pitch;
+        
+
+    }
+
+
+
+}
       
   function update(){
     const uripart1 = "https://firebasestorage.googleapis.com/v0/b/photobooth-466c7.appspot.com/o/images%2F";
@@ -61,8 +108,8 @@
         console.log(uripart1+name+uripart2+token);
         document.getElementById('test').src=uripart1+name+uripart2+token;
   } 
-
-  update();
+urlManagement()
+  //update();
 
 </script>
 </body>
